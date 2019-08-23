@@ -11,13 +11,6 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import axios from '../../axios-orders';
 import * as actionTypes from '../../store/actions';
 
-const INGREDIENT_PRICES = {
-    salad: 0.5,
-    cheese: 0.4,
-    meat: 1.3,
-    bacon: 0.7
-};
-
 class BurgerBuilder extends Component {
     // constructor(props) {
     //     super(props);
@@ -25,8 +18,9 @@ class BurgerBuilder extends Component {
     // }
     state = {
         // ingredients: null,
-        //^is used in more than one file
-        totalPrice: 2,
+        //^added as reducer
+        // totalPrice: 2,
+        //^added as reducer
         purchasable: false,
         purchasing: false,
         loading: false,
@@ -99,10 +93,10 @@ class BurgerBuilder extends Component {
         // alert('You continue!');
         
         const queryParams = [];
-        for (let i in this.state.ingredients) {
-            queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
+        for (let i in this.props.ingrdnts) {
+            queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.props.ingrdnts[i]));
         }
-        queryParams.push('price=' + this.state.totalPrice);
+        queryParams.push('price=' + this.props.topping$);
         const queryString = queryParams.join('&');
         this.props.history.push({
             pathname: '/checkout',
@@ -130,12 +124,12 @@ class BurgerBuilder extends Component {
                         disabled={disabledInfo}
                         purchasable={this.state.purchasable}
                         ordered={this.purchaseHandler}
-                        price={this.state.totalPrice} />
+                        price={this.props.topping$} />
                 </Auxillary>
             );
             orderSummary = <OrderSummary
                 ingredients={this.props.ingrdnts}
-                price={this.state.totalPrice}
+                price={this.props.topping$}
                 purchaseCancelled={this.purchaseCancelHandler}
                 purchaseContinued={this.purchaseContinueHandler} />;
         }
@@ -156,7 +150,8 @@ class BurgerBuilder extends Component {
 
 const mapStateToProps = state => {
     return {
-        ingrdnts : state.ingredients
+        ingrdnts : state.ingredients,
+        topping$ : state.totalPrice
     };
 }
 
