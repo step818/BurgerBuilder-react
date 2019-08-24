@@ -21,7 +21,7 @@ class BurgerBuilder extends Component {
         //^added as reducer
         // totalPrice: 2,
         //^added as reducer
-        purchasable: false,
+        // purchasable: false,
         purchasing: false,
         loading: false,
          //^is used in more than one file
@@ -47,7 +47,7 @@ class BurgerBuilder extends Component {
             .reduce( ( sum, el ) => {
                 return sum + el;
             }, 0 );
-        this.setState( { purchasable: sum > 0 } );
+        return sum > 0;
     }
 
     // addIngredientHandler = ( type ) => {
@@ -122,7 +122,7 @@ class BurgerBuilder extends Component {
                         ingredientAdded={this.props.onAddIngredient}
                         ingredientRemoved={this.props.onRemoveIngredient}
                         disabled={disabledInfo}
-                        purchasable={this.state.purchasable}
+                        purchasable={this.updatePurchaseState(this.props.ingrdnts)}
                         ordered={this.purchaseHandler}
                         price={this.props.topping$} />
                 </Auxillary>
