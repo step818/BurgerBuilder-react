@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import axios from 'axios';
+import axios from '../../axios-orders';
 
 export const purchaseBurgerSucccess = (id, orderData) => {
   return {
@@ -16,15 +16,28 @@ export const purchaseBurgerFail = (error) => {
   };
 };
 
-export const purchaseBurgerStart = (orderData) => {
+export const purchaseBurgerStart = () => {
+  return {
+    type: actionTypes.PURCHASE_BURGER_START
+  };
+}
+
+export const purchaseBurger = (orderData) => {
   return dispatch => {
+    dispatch(purchaseBurgerStart());
     axios.post('https://react-my-burger-e79ed.firebaseio.com/orders.json', orderData)
       .then(response => {
-        dispatch(purchaseBurgerSucccess(response.data, orderData));
+        dispatch(purchaseBurgerSucccess(response.data.name, orderData));
       console.log(response.data);
-  }).catch( error => {
+    }).catch( error => {
       dispatch(purchaseBurgerFail(error));
       console.log(error);
-  });
+    });
+  };
+};
+
+export const purchaseInit = () => {
+  return {
+    type: actionTypes.PURCHASE_INIT
   }
 }

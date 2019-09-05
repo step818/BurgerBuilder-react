@@ -23,7 +23,8 @@ const reducer = (state = initialState, action) => {
 //  ingredientName is the payload param. sta.ing[act.inN] is # for which the inN index of the sta.ing array
           [action.ingredientName]: state.ingredients[action.ingredientName] + 1
         },
-        totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName] 
+        totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName],
+        error: false
       };
     case actionTypes.REMOVE_INGREDIENT:
       return {
@@ -32,7 +33,8 @@ const reducer = (state = initialState, action) => {
           ...state.ingredients,
           [action.ingredientName]: state.ingredients[action.ingredientName] -1
         },
-        totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName] 
+        totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName],
+        error: false
       };
     case actionTypes.SET_INGREDIENT:
       return {
