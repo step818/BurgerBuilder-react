@@ -191,12 +191,12 @@ const mapStateToProps = state => {
     price: state.burgerBuilder.totalPrice,
     loading: state.order.loading
   }
-}
+};
 
 const mapDispatchToProps = dispatch => {
   return {
     onOrderBurger: (orderData) => dispatch(actions.purchaseBurger(orderData)) 
-  }
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData, axios));
