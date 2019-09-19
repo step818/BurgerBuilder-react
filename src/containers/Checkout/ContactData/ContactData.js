@@ -120,9 +120,6 @@ class ContactData extends React.Component {
     updatedFormElement.value = event.target.value;
     updatedFormElement.valid = this.checkValidity(updatedFormElement, updatedFormElement.validation);
     updatedFormElement.touched = true;
-    //updatedOrderForm = {{name:...},{street:...}...}
-    //updatedFormElement = {{elementType:...},{elementConfig:...}...}
-    // console.log(updatedFormElement);
     updatedOrderForm[inputIdentifier] = updatedFormElement;
     let updatedFormIsValid = true;
     for (let inputIdentifier in updatedOrderForm) {
